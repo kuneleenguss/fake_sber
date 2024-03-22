@@ -6,8 +6,8 @@ import asyncio
 class ImageProcess:
     def __init__(self) -> None:
         self.__image = Image.open("Screenshot_1.png")
-        self.__font1 = ImageFont.truetype("ds_sbsans_display_semibold.otf", 72)
-        self.__font2 = ImageFont.truetype("ds_sbsans_text_medium.otf", 34)
+        self.__font1 = ImageFont.truetype("fonts/ds_sbsans_display_semibold.otf", 72)
+        self.__font2 = ImageFont.truetype("fonts/ds_sbsans_text_medium.otf", 34)
         self.__font3 = ImageFont.truetype("arial.ttf", 23)
 
         self.__draw = ImageDraw.Draw(self.__image)

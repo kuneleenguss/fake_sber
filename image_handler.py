@@ -40,7 +40,8 @@ async def enter_sum(message: Message, state: FSMContext):
 
         # await message.answer(f"Вы ввели сумму {num}")
         output = FSInputFile("output.png")
-        await message.answer_photo(output, caption="Ваша хуйня готова")
+        # await message.answer_photo(output, caption="Ваша хуйня готова")
+        await message.answer_document(output, caption="Ваша хуйня готова")
         await state.clear()
 
     else:
