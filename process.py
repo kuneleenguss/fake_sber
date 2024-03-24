@@ -8,8 +8,7 @@ class ImageProcess:
         self.__image = Image.open("Screenshot_1.png")
         self.__font1 = ImageFont.truetype("fonts/ds_sbsans_display_semibold.otf", 72)
         self.__font2 = ImageFont.truetype("fonts/ds_sbsans_text_medium.otf", 34)
-        self.__font3 = ImageFont.truetype("arial.ttf", 23)
-
+        self.__font3 = ImageFont.truetype("fonts/arial.ttf", 23)
         self.__draw = ImageDraw.Draw(self.__image)
 
 
@@ -26,7 +25,6 @@ class ImageProcess:
         self.__draw.text((self.__image.width/2 - num_width/2, 795), num, font=self.__font1, fill=(0, 0, 0, 255))
         self.__draw.text((self.__image.width/2 - text_width/2, 950), msg, font=self.__font2, fill=(115, 115, 115, 255))
         self.__draw.text((33, 27.5), time.strftime("%H:%M"), font=self.__font3, fill=(50, 52, 55, 255))
-
 
         print(time.strftime("%H:%M"))
         # self.image.show()

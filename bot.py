@@ -1,6 +1,7 @@
 import asyncio
 
 from aiogram import Bot, Dispatcher, types
+from aiogram.fsm.context import FSMContext
 from aiogram.client.session.aiohttp import AiohttpSession
 from aiogram.client.telegram import TelegramAPIServer
 from aiogram.filters.command import Command
@@ -16,8 +17,9 @@ dp = Dispatcher()
 dp.include_router(image_handler.router)
 
 @dp.message(Command("start"))
-async def cmd_start(message: types.Message):
+async def cmd_start(message: types.Message, state: FSMContext):
     await message.answer("Sieg Heil!")
+    await state.clear()
 
 
 # @dp.message()
@@ -29,5 +31,6 @@ async def main():
     print("Bot started")
     await dp.start_polling(bot)
 
-if __name__ == "__main__":
-    asyncio.run(main())
+# if __name__ == "__main__":
+#     asyncio.run(main())
+asyncio.run(main())
