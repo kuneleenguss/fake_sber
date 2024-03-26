@@ -39,4 +39,4 @@ class ImageProcess:
         await loop.run_in_executor(ThreadPoolExecutor(), self.__process, msg, num)
 
 # process = ImageProcess()
-# asyncio.run(process.process_image("Бахтиер Нурболович У.", 228000))
+# asyncio.run(process.process_image("Бахтиер Нурболович У. \n ПАО \"АЛЬФА-ГРУП\"", 228000))

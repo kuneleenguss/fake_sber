@@ -42,7 +42,7 @@ async def enter_sum(message: Message, state: FSMContext):
 
 @router.message(UserState_1.entering_name)
 async def enter_name(message: Message, state: FSMContext):
-    name = message.text
+    name = message.text.replace('\n', '1')
     
     if not re.findall('\d', name):
         data = await state.get_data()
