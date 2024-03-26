@@ -5,8 +5,8 @@ import asyncio
 
 class ImageProcess:
     def __init__(self) -> None:
-        self.__image = Image.open("Screenshot_1.png")
-        self.__font1 = ImageFont.truetype("fonts/ds_sbsans_display_semibold.otf", 72)
+        self.__image = Image.open("features/screen_2/Screenshot_1.png")
+        self.__font1 = ImageFont.truetype("fonts/ds_sbsans_display_semibold.otf", 70)
         self.__font2 = ImageFont.truetype("fonts/ds_sbsans_text_medium.otf", 34)
         self.__font3 = ImageFont.truetype("fonts/arial.ttf", 23)
         self.__draw = ImageDraw.Draw(self.__image)
@@ -22,13 +22,13 @@ class ImageProcess:
         # date = datetime.date.today()
         time = datetime.datetime.now()
 
-        self.__draw.text((self.__image.width/2 - num_width/2, 795), num, font=self.__font1, fill=(0, 0, 0, 255))
-        self.__draw.text((self.__image.width/2 - text_width/2, 950), msg, font=self.__font2, fill=(115, 115, 115, 255))
-        self.__draw.text((33, 27.5), time.strftime("%H:%M"), font=self.__font3, fill=(50, 52, 55, 255))
+        self.__draw.text((self.__image.width/2 - num_width/2, 463), num, font=self.__font1, fill=(255, 255, 255, 255))
+        self.__draw.text((self.__image.width/2 - text_width/2, 580), msg, font=self.__font2, fill=(255, 255, 255, 255))
+        self.__draw.text((33, 27.5), time.strftime("%H:%M"), font=self.__font3, fill=(255, 255, 255, 255))
 
         print(time.strftime("%H:%M"))
-        # self.image.show()
-        self.__image.save("output.png")
+        # self.__image.show()
+        self.__image.save("features/screen_2/output.png")
         # print('{:,}'.format(5000).replace(',', ' '))
 
 
@@ -39,4 +39,4 @@ class ImageProcess:
         await loop.run_in_executor(ThreadPoolExecutor(), self.__process, msg, num)
 
 # process = ImageProcess()
-# asyncio.run(process.process_image("Бахтиер Нурболович У.", 228000))
+# asyncio.run(process.process_image("Иван Алексеевич А.", 10000))
