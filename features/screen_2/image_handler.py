@@ -10,6 +10,7 @@ from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
 
 import keyboards
+import config
 
 router = Router()
 
@@ -21,6 +22,7 @@ class UserState_2(StatesGroup):
 
 @router.message(F.text == keyboards.Keyboards.options[1])
 async def cmd_num(message: Message, state: FSMContext):
+    await config.save_user(message=message)
     await state.set_state(UserState_2.entering_num)
     
     await message.answer("Введите сумму 💰:")
@@ -59,7 +61,7 @@ async def enter_name(message: Message, state: FSMContext):
         # await message.answer(f"Вы ввели сумму {num}")
         output = FSInputFile("features/screen_2/output.png")
         # await message.answer_photo(output, caption="Ваша хуйня готова")
-        await message.answer_document(output, caption="Ваш скриншот готов ✅")
+        await message.answer_document(output, caption="Ваш скриншот готов ✅", reply_markup=keyboards.Keyboards().keyboard_pick_screenshot)
         await state.clear()
 
     else:
