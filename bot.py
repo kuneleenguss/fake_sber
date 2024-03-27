@@ -26,7 +26,8 @@ async def main():
     dp.include_router(image_handler_1.router)
     dp.include_router(image_handler_2.router)
 
-    greeting = "Привет! 👋 Здесь ты можешь получить скрины перевода твоего любимого банка!\n"
+    greeting = "Привет! 👋 Здесь ты можешь получить скрины перевода твоего любимого (или нет) банка!\n"
+    greeting = greeting + "\n" + "Платформа: Android \n"
     greeting = greeting + "\n" + "Больше фич на данный момент находятся в разработке 🛠\n"
     greeting = greeting + "\n" + "Чтобы начать, выбери один из вариантов скриншотов ниже 👇"
 
@@ -41,10 +42,8 @@ async def main():
         # print(updates.pop().message.from_user.username + "\n" + updates.pop().message.chat.id)
         await config.save_user(message=message)
 
-
         await message.answer_document(FSInputFile("features/screen_1/demo_1.png"))
-        await message.answer_document(FSInputFile("features/screen_2/demo_2.png"))
-        await message.answer(greeting, reply_markup=keyboards.Keyboards().keyboard_pick_screenshot)
+        await message.answer_document(FSInputFile("features/screen_2/demo_2.png"), caption=greeting, reply_markup=keyboards.Keyboards().keyboard_pick_screenshot)
         # state_name = await state.get_state()
         # print(state_name)
 
@@ -58,7 +57,7 @@ async def main():
 
 
     await bot.delete_webhook(drop_pending_updates=True)
-    # await bot.send_message(chat_id=1809593982, text="Я работаю!")
+    # await bot.send_message(chat_id=6718228225, text="Я работаю!")
     # await bot.send_message(chat_id=-1001870427118, text="Я в чате!")
     print("Bot started")
     await dp.start_polling(bot)

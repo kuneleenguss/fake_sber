@@ -2,7 +2,7 @@ from aiogram import types
 
 
 class Keyboards:
-    options = ["Перевод 1️⃣", "Перевод 2️⃣"]
+    options = ["Перевод Сбер 1️⃣", "Перевод Сбер 2️⃣"]
 
     keyboard_pick_screenshot = types.ReplyKeyboardMarkup(
         keyboard=[

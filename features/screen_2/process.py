@@ -12,7 +12,7 @@ class ImageProcess:
         self.__draw = ImageDraw.Draw(self.__image)
 
 
-    def __process(self, msg: str, num: int):
+    def __process(self, msg: str, num: int, time: str):
         num = '{:,}'.format(num).replace(',', ' ')
         num = f"{num} \u20bd"
 
@@ -20,23 +20,24 @@ class ImageProcess:
         num_width = self.__draw.textlength(num, self.__font1)
 
         # date = datetime.date.today()
-        time = datetime.datetime.now()
+        # time = datetime.datetime.now()
 
         self.__draw.text((self.__image.width/2 - num_width/2, 463), num, font=self.__font1, fill=(255, 255, 255, 255))
         self.__draw.text((self.__image.width/2 - text_width/2, 580), msg, font=self.__font2, fill=(255, 255, 255, 255))
-        self.__draw.text((33, 27.5), time.strftime("%H:%M"), font=self.__font3, fill=(255, 255, 255, 255))
+        self.__draw.text((33, 27.5), time, font=self.__font3, fill=(255, 255, 255, 255))
+        # self.__draw.text((33, 27.5), time.strftime("%H:%M"), font=self.__font3, fill=(255, 255, 255, 255))
 
-        print(time.strftime("%H:%M"))
+        # print(time.strftime("%H:%M"))
         # self.__image.show()
         self.__image.save("features/screen_2/output.png")
         # print('{:,}'.format(5000).replace(',', ' '))
 
 
-    async def process_image(self, msg: str, num: int):
+    async def process_image(self, msg: str, num: int, time: str):
         loop = asyncio.get_event_loop()
         print("Processing...")
         # await asyncio.sleep(3.0)
-        await loop.run_in_executor(ThreadPoolExecutor(), self.__process, msg, num)
+        await loop.run_in_executor(ThreadPoolExecutor(), self.__process, msg, num, time)
 
 # process = ImageProcess()
 # asyncio.run(process.process_image("Иван Алексеевич А.", 10000))
