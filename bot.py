@@ -43,7 +43,8 @@ async def main():
         await config.save_user(message=message)
 
         await message.answer_document(FSInputFile("features/screen_1/demo_1.png"))
-        await message.answer_document(FSInputFile("features/screen_2/demo_2.png"), caption=greeting, reply_markup=keyboards.Keyboards().keyboard_pick_screenshot)
+        await message.answer_document(FSInputFile("features/screen_2/demo_2.png"))
+        await message.answer(greeting, reply_markup=keyboards.Keyboards().keyboard_pick_screenshot)
         # state_name = await state.get_state()
         # print(state_name)
 
