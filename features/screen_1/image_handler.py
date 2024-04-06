@@ -11,23 +11,16 @@ from aiogram.fsm.state import State, StatesGroup
 
 import keyboards
 import config
+from states import UserState_1, AppState
 
 router = Router()
 
-class UserState_1(StatesGroup):
-    entering_num = State()
-    entering_name = State()
-    entering_time = State()
-    getting_result = State()
-
-
-@router.message(F.text == keyboards.Keyboards.options[0])
+@router.message(F.text == keyboards.Keyboards.options[0], AppState.start_state)
 async def cmd_num(message: Message, state: FSMContext):
     await config.save_user(message=message)
     await state.set_state(UserState_1.entering_num)
     
     await message.answer("Введите сумму 💰: \n(без точек и пробелов)")
-
 
 @router.message(UserState_1.entering_num)
 async def enter_sum(message: Message, state: FSMContext):
