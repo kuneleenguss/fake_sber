@@ -71,7 +71,7 @@ async def enter_name(message: Message, state: FSMContext):
         output = FSInputFile("features/screen_1/output.png")
         # await message.answer_photo(output, caption="Ваша хуйня готова")
         await message.answer_document(output, caption="Ваш скриншот готов ✅", reply_markup=keyboards.Keyboards().keyboard_pick_screenshot)
-        await state.clear()
+        await state.set_state(AppState.start_state)
 
     else:
         
