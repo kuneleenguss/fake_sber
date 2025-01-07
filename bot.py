@@ -1,4 +1,5 @@
 import asyncio
+import sys
 
 from aiogram import F
 from aiogram import Bot, Dispatcher, types
@@ -10,7 +11,7 @@ from aiogram.filters import Command, StateFilter
 from aiogram.types import Message, FSInputFile
 from aiogram.types.update import Update
 from aiogram.methods import DeleteWebhook
-from aiogram.enums import ParseMode
+from aiogram.enums import ParseMode         
 
 import keyboards
 import config
@@ -23,13 +24,24 @@ from states import AppState
 
 # session = AiohttpSession(api=TelegramAPIServer.from_base('http://localhost'))
 
-bot = config.bot
+
+# bot = config.bot
+
+config = config.Config()
+
 
 async def main():
-    dp = Dispatcher()
 
-    dp.include_router(image_handler_1.router)
-    dp.include_router(image_handler_2.router)
+    flag = sys.argv[len(sys.argv) - 1]
+    bot = config.init_bot(flag)
+    
+    dp = Dispatcher()
+    
+    router_1 = image_handler_1.ImageHandler(bot).router
+    router_2 = image_handler_2.ImageHandler(bot).router
+    
+    dp.include_router(router_1)
+    dp.include_router(router_2)
 
     greeting = "Привет! 👋 Здесь ты можешь получить скрины перевода твоего любимого (или нет) банка!\n"
     greeting = greeting + "\n" + "Платформа: Android \n"
@@ -43,11 +55,11 @@ async def main():
         return
     
     
-    @dp.message(Command("start"), filters.SubscribeFilter(bot=config.bot))
+    @dp.message(Command("start"), filters.SubscribeFilter(bot=bot))
     async def cmd_start(message: types.Message, state: FSMContext, isMember: bool):
         # print(updates.pop().message.from_user.username + "\n" + updates.pop().message.chat.id)
         # LEFT, MEMBER
-        await config.save_user(message=message)
+        await config.save_user(message=message, bot=bot)
 
         if isMember:
             await message.answer_document(FSInputFile("features/screen_1/demo_1.png"))
@@ -64,14 +76,15 @@ async def main():
 
     @dp.message(StateFilter(None), F.is_not(Command("start")), F.text.not_in(keyboards.Keyboards.options))
     async def is_not_command(message: Message):
-        await config.save_user(message=message)
+        await config.save_user(message=message, bot=bot)
         await message.reply("Я не шарю за эту команду. Чтобы начать, воспользуйтесь /start")
 
 
-    await bot.delete_webhook(drop_pending_updates=True)
+    await bot.delete_webhook(drop_pending_updates=False)
     # await bot.send_message(chat_id=6718228225, text="Я работаю!")
     # await bot.send_message(chat_id=-1001870427118, text="Я в чате!")
     print("Bot started")
+    print(flag)
     await dp.start_polling(bot)
 
 
